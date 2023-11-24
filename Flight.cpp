@@ -8,7 +8,9 @@ using namespace std;
 
 Flight::Flight(const string &flightId, int numRows, int numCols, const vector<Passenger> &passengers,
                const vector<vector<Seat>> &seatMap) : flightId(flightId), numRows(numRows), numCols(numCols),
-                                                      passengers(passengers), seatMap(seatMap) {}
+                                                      passengers(passengers), seatMap(seatMap) {
+
+}
 
 Flight::~Flight() {
 

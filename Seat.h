@@ -14,6 +14,7 @@ private:
     char col_num;
 
 
+
 public:
     Seat(bool seatStatus, int rowNum, char colNum);
 
