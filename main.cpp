@@ -14,6 +14,7 @@ int main() {
     Airline myAirline = Airline("WestJet");
     populate_flight_list_from_file("passenger_info.txt", myAirline);
     myAirline.getFlightList()[0].printSeatMap();
+    display_header();
 
     //myAirline.getFlightList()[1].printSeatMap();
 //    // Creating a Flight object
@@ -83,6 +84,14 @@ void populate_flight_list_from_file(string filename, Airline &airline) {
 
 
 }
+
+void display_header(){
+    cout << "Version 1.0" << endl <<
+    "Term Project - Flight Management Program in C++" << endl <<
+    "Produces by: Qasim Amar, Zaira Ramji, and (third guy name)" << endl <<
+    "Year: 2023"<< endl;
+}
+
 
 //tokenize function
 vector<string> tokenize(string str) {
