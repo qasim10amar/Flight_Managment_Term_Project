@@ -4,11 +4,27 @@
 
 #include "Seat.h"
 
+Seat::Seat(bool seatStatus, int rowNum, char colNum) : seat_status(seatStatus), row_num(rowNum), col_num(colNum) {
+}
 
-Seat::Seat(bool seatStatus, int rowNum, char colNum) : seat_status(seatStatus), row_num(rowNum), col_num(colNum) {}
+Seat::Seat(bool seatStatus, string seatNum) : seat_status(seatStatus) {
+    string numberPart = "";
+    string charPart = "";
+
+    for (char c : seatNum) {
+        if (std::isdigit(c)) {
+            numberPart += c;
+        } else {
+            charPart += c;
+        }
+    }
+
+    row_num = stoi(numberPart);
+    col_num = charPart[0];
+
+}
 
 Seat::~Seat() {
-
 }
 
 bool Seat::isSeatStatus() const {
@@ -35,6 +51,15 @@ void Seat::setColNum(char colNum) {
     col_num = colNum;
 
 
+}
+
+int Seat::convert_col(){
+    int char_num = int(col_num) - 65;
+    return char_num;
+}
+
+Seat::Seat() {
+    seat_status = false;
 }
 
 

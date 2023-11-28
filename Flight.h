@@ -24,10 +24,11 @@ private:
     vector<vector<Seat>> seatMap;
 
 public:
-    Flight(const string &flightId, int numRows, int numCols, const vector<Passenger> &passengers,
-           const vector<vector<Seat>> &seatMap);
+    Flight(const string &flightId, int numRows, int numCols, const vector<Passenger> &passengers);
 
-    ~Flight();
+
+
+    void printSeatMap() const;
 
     const string &getFlightId() const;
 

@@ -11,4 +11,5 @@ add_executable(Amar_Term_Project main.cpp
         Passenger.cpp
         Passenger.h
         Seat.cpp
-        Seat.h)
+        Seat.h
+        main.h)

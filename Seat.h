@@ -1,7 +1,7 @@
 //
 // Created by Qasim Amar on 2023-11-22.
 //
-
+#include "string"
 using namespace std;
 #ifndef AMAR_TERM_PROJECT_SEAT_H
 #define AMAR_TERM_PROJECT_SEAT_H
@@ -17,6 +17,7 @@ private:
 
 public:
     Seat(bool seatStatus, int rowNum, char colNum);
+    Seat(bool seatStatus, string seatNum);
 
     bool isSeatStatus() const;
 
@@ -32,6 +33,9 @@ public:
 
     ~Seat();
 
+    int convert_col();
+
+    Seat();
 };
 
 

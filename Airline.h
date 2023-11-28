@@ -12,6 +12,7 @@ using namespace std;
 class Airline {
 public:
     Airline(const string &name, const vector<Flight> &flightList, int numFlight);
+    Airline(const string &name);
 
     ~Airline();
 
@@ -21,14 +22,12 @@ public:
 
     int getNumFlight() const;
 
-    void setName(const string &name);
-
     void setFlightList(const vector<Flight> &flightList);
 
     void setNumFlight(int numFlight);
 
 private:
-    string name;
+    const string name;
     vector<Flight> flightList;
     int numFlight;
 };
