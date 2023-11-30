@@ -15,8 +15,6 @@ int main() {
     populate_flight_list_from_file("passenger_info.txt", myAirline);
     myAirline.getFlightList()[0].printSeatMap();
     display_header();
-    cin.ignore();
-    cin.get();
     menu();
 
     //myAirline.getFlightList()[1].printSeatMap();
@@ -90,13 +88,39 @@ void populate_flight_list_from_file(string filename, Airline &airline) {
 
 void display_header(){
     cout << "Version 1.0\nTerm Project - Flight Management Program in C++\nProduced by: Qasim Amar, Zaira Ramji, and (third guy name)\nYear: 2023\n\n"<< "<<< Press Return to Continue >>>>>"<<endl;
-}
-void menu(){
-    int choice;
-    cout << "Please select one of the following options:\n1. Display Flight Seat Map\n2. Display Passenger Information\n3. Add New Passenger\n4. Remove an Existing Passenger\n5. Save data\n6. Quit\n";
-    cin >> choice;
+    cin.ignore();
+    cin.get();
 }
 
+void menu(){
+    int choice;
+    do{ cout << "Please select one of the following options:\n<<1. Display Flight Seat Map\n2. Display Passenger Information\n3. Add New Passenger\n4. Remove an Existing Passenger\n5. Save data\n6. Quit\n";
+        
+        cin >> choice;
+        if (cin.fail() || choice < 1 || choice > 6){
+            cin.clear(); // Clear the error flag
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Discard invalid input
+            cout << "Invalid input. Please enter a number between 1 and 6.\n\n";
+        } else {
+            switch (choice){
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                default:
+                    cout << "Invalid input. Please enter a number between 1 and 6.\n\n";
+            }
+        }
+        
+    } while ((choice < 1 || choice > 6));}
 
 //tokenize function
 vector<string> tokenize(string str) {
