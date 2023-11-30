@@ -92,7 +92,9 @@ void display_header(){
     cout << "Version 1.0\nTerm Project - Flight Management Program in C++\nProduced by: Qasim Amar, Zaira Ramji, and (third guy name)\nYear: 2023\n\n"<< "<<< Press Return to Continue >>>>>"<<endl;
 }
 void menu(){
+    int choice;
     cout << "Please select one of the following options:\n1. Display Flight Seat Map\n2. Display Passenger Information\n3. Add New Passenger\n4. Remove an Existing Passenger\n5. Save data\n6. Quit\n";
+    cin >> choice;
 }
 
 
