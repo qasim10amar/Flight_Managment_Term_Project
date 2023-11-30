@@ -18,7 +18,7 @@ public:
 
     const string &getName() const;
 
-    const vector<Flight> &getFlightList() const;
+    vector<Flight> &getFlightList();
 
     int getNumFlight() const;
 

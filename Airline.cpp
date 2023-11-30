@@ -21,7 +21,7 @@ const string &Airline::getName() const {
     return name;
 }
 
-const vector<Flight> &Airline::getFlightList() const {
+vector<Flight> &Airline::getFlightList(){
     return flightList;
 }
 

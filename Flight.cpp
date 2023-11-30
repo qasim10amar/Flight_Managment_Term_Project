@@ -9,7 +9,7 @@
 using namespace std;
 Flight::Flight(const string &flightId, int numRows, int numCols, const vector<Passenger> &passengers) : flightId(flightId), numRows(numRows), numCols(numCols),passengers(passengers)
 {
-    seatMap.resize(numRows, vector<Seat>(numCols));
+    seatMap.resize(numRows + 1, vector<Seat>(numCols));
 
     // Update seats based on passenger information
     for (const Passenger &passenger : passengers) {
@@ -32,14 +32,14 @@ void Flight::printSeatMap() const {
     cout << endl;
 
     // Print seat map
-    for (int row = 0; row < numRows; ++row) {
+    for (int row = 1; row <= numRows; ++row) {
         cout << "   +";
         for (int col = 0; col < numCols; ++col) {
             cout << "---+";
         }
         cout << endl;
 
-        cout << setw(2) << row << " |";
+        cout << setw(2) << row<< " |";
         for (int col = 0; col < numCols; ++col) {
             if (seatMap[row][col].isSeatStatus()) {
                 cout << " X |";
@@ -54,7 +54,27 @@ void Flight::printSeatMap() const {
     for (int col = 0; col < numCols; ++col) {
         cout << "---+";
     }
-    cout << endl;
+    cout << "\n" << endl;
+}
+
+void printSeparator(int totalWidth) {
+    for (int i = 0; i < totalWidth; ++i) {
+        std::cout << "-";
+    }
+    std::cout << std::endl;
+}
+
+void Flight::printPassengerInfo() const {
+    std::cout << std::left << std::setw(20) << "First Name" << std::setw(20) << "Last Name" << std::setw(15) << "Phone"
+              << std::setw(5) << "Row" << std::setw(10) << "Seat" << std::setw(10) << "ID" << std::endl;
+
+    printSeparator(75);
+    for (const Passenger &passenger : passengers) {
+        std::cout << std::left << std::setw(20) << passenger.getFName() << std::setw(20) << passenger.getLName() << std::setw(15) << passenger.getPhoneNum()
+                  << std::setw(5) << passenger.getSeat()->getRowNum() << std::setw(10) << passenger.getSeat()->getColNum() << std::setw(10) << passenger.getPassengerId() << std::endl;
+        printSeparator(75);
+    }
+
 }
 
 const string &Flight::getFlightId() const {
@@ -77,7 +97,7 @@ const vector<Passenger> &Flight::getPassengers() const {
     return passengers;
 }
 
-void Flight::setPassengers(const vector<Passenger> &passengers) {
+void Flight::setPassengers(const vector<Passenger> &passengers){
     Flight::passengers = passengers;
     // Update seats based on passenger information
     for (const Passenger &passenger : passengers) {
@@ -97,4 +117,47 @@ const vector<vector<Seat>> &Flight::getSeatMap() const {
 void Flight::setSeatMap(const vector<vector<Seat>> &seatMap) {
     Flight::seatMap = seatMap;
 }
+
+void Flight::addPassenger() {
+    int id;
+    string fName;
+    string lName;
+    string phoneNum;
+    int rowNum;
+    char colNum;
+
+    cout << "Enter passenger ID: ";
+    cin >> id;
+    cout << "Enter passenger first name: ";
+    cin >> fName;
+    cout << "Enter passenger last name: ";
+    cin >> lName;
+    cout << "Enter passenger phone number: ";
+    cin >> phoneNum;
+    cout << "Enter passenger row number: ";
+    cin >> rowNum;
+    cout << "Enter passenger column number: ";
+    cin >> colNum;
+
+    Seat *seat = new Seat(true, rowNum, colNum);
+    Passenger passenger(seat, fName, lName, id, phoneNum);
+    vector<Passenger> tempPassengerList = passengers;
+    tempPassengerList.push_back(passenger);
+    setPassengers(tempPassengerList);
+}
+
+void Flight::removePassenger() {
+    int id;
+    cout << "Enter passenger ID: ";
+    cin >> id;
+    vector<Passenger> tempPassengerList = passengers;
+    for(int i = 0; i < tempPassengerList.size(); i++){
+        if(tempPassengerList[i].getPassengerId() == id){
+            tempPassengerList.erase(tempPassengerList.begin() + i);
+        }
+    }
+    setPassengers(tempPassengerList);
+}
+
+
 

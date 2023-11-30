@@ -62,4 +62,10 @@ Seat::Seat() {
     seat_status = false;
 }
 
-
+/*string Seat::concat_RC(int rowNumber, char colNumber){
+    string row = to_string(rowNumber);
+    string col(1, colNumber);
+    string seatNum = row + col;
+    return seatNum;
+}
+*/

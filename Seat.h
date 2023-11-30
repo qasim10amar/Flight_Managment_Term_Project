@@ -35,6 +35,8 @@ public:
 
     int convert_col();
 
+    //string concat_RC(int rowNumber, char colNumber);
+
     Seat();
 };
 

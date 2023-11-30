@@ -20,7 +20,7 @@ private:
     string flightId;
     int numRows;
     int numCols;
-    vector<Passenger> passengers;
+    vector<Passenger> passengers ;
     vector<vector<Seat>> seatMap;
 
 public:
@@ -51,6 +51,10 @@ public:
     void setSeatMap(const vector<vector<Seat>> &seatMap);
 
 
+    void printPassengerInfo() const;
+
+    void addPassenger();
+    void removePassenger();
 };
 
 

@@ -23,5 +23,6 @@ void menu();
 
 void populate_flight_list_from_file(string file_name, Airline &airline);
 vector<string> tokenize(string str);
+void saveData(Airline &airline);
 
 #endif //AMAR_TERM_PROJECT_MAIN_H

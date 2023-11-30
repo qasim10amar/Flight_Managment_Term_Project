@@ -4,24 +4,69 @@ using namespace std;
 
 int main() {
 
-//    // Sample passenger data
-//    std::vector<Passenger> passengers = {
-//            Passenger(new Seat(true, 0, 'A'), "Tom", "Harris", 10000, "403-100-0000"),
-//            Passenger(new Seat(true,1, 'A'), "Tim", "Brown", 10001, "403-100-0001"),
-//            Passenger(new Seat(true,2, 'F'), "Jim", "Black", 10002, "403-100-0002"),
-//            // Add more passengers as needed
-//    };
+    display_header();
     Airline myAirline = Airline("WestJet");
     populate_flight_list_from_file("passenger_info.txt", myAirline);
-    myAirline.getFlightList()[0].printSeatMap();
 
-    //myAirline.getFlightList()[1].printSeatMap();
-//    // Creating a Flight object
-//    Flight myFlight("WJ1145", 24, 6, passengers);
-//
-//    // Printing the seat map
-//    myFlight.printSeatMap();
+    while(true){
+        menu();
+        int choice;
+        cin >> choice;
+        // Clear the input buffer
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        if(choice == 1){
+            cout << "\t  Aircraft Seat Map" << endl;
+            myAirline.getFlightList()[0].printSeatMap();
+        }
+        else if(choice == 2){
+            cout << "Display Passenger Information" << endl;
+            myAirline.getFlightList()[0].printPassengerInfo();
+        }
+        else if(choice == 3){
+            cout << "Add a New Passenger" << endl;
+            myAirline.getFlightList()[0].addPassenger();
+        }
+        else if(choice == 4){
+            cout << "Remove an Existing Passenger" << endl;
+            myAirline.getFlightList()[0].removePassenger();
+        }
+        else if(choice == 5){
+            cout << "Save data" << endl;
+            saveData(myAirline);
+        }
+        else if(choice == 6){
+            cout << "Quit" << endl;
+            cout << "\nProgram Terminated" << endl;
+            break;
+        }
+        else{
+            cout << "Invalid input" << endl;
+        }
+    }
+
     return 0;
+}
+
+void display_header() {
+    cout << "Version: 1.0" << endl;
+    cout << "Term Project - Flight Management Program in C++" << endl;
+    cout << "Produced by: Qasim Amar" << endl;
+    cout << "Year: 2023\n" << endl;
+    cout << "<<< Press Return to Continue >>>>";
+    cin.get();
+}
+
+void menu() {
+
+    cout << "<<< Press Return to Continue >>>>" << endl;
+    cin.get();
+    cout << "1. Display Flight Seat Map" << endl;
+    cout << "2. Display Passenger Information" << endl;
+    cout << "3. Add a New Passenger" << endl;
+    cout << "4. Remove an Existing Passenger" << endl;
+    cout << "5. Save data" << endl;
+    cout << "6. Quit" << endl;
+    cout << "Enter your choice: (1, 2, 3, 4, 5, or 6) ";
 }
 
 void populate_flight_list_from_file(string filename, Airline &airline) {
@@ -60,7 +105,9 @@ void populate_flight_list_from_file(string filename, Airline &airline) {
         Flight *newFlight;
         for (const auto& data : flight) {
             vector<string> passengerData = tokenize(data);
-
+//            for(int i = 0; i < passengerData.size(); i++){
+//                cout << passengerData[i] << endl;
+//            }
 
             if(passengerData.size() == 3){
                 newFlight = new Flight(passengerData[0], stoi(passengerData[1]), stoi(passengerData[2]), vector<Passenger>());
@@ -86,10 +133,43 @@ void populate_flight_list_from_file(string filename, Airline &airline) {
 
 //tokenize function
 vector<string> tokenize(string str) {
-    std::string inputString = str;
+    string inputString = str;
 
-    std::regex re("\\s{2,}"); // Matches two or more whitespace characters
-    std::vector<std::string> tokens(std::sregex_token_iterator(inputString.begin(), inputString.end(), re, -1), {});
+    regex re("\\s{2,}"); // Matches two or more whitespace characters
+    vector<string> tokens(sregex_token_iterator(inputString.begin(), inputString.end(), re, -1), {});
+    if(tokens.size() == 4){
+        string temp = tokens[3];
+        regex re("\\s{1,}"); // Matches two or more whitespace characters
+        vector<string> tempTokens(sregex_token_iterator(temp.begin(), temp.end(), re, -1), {});
+        tokens.push_back(tempTokens[0]);
+        tokens.push_back(tempTokens[1]);
+        //Delete tokens[2]
+        tokens.erase(tokens.begin() + 3);
+    }
 
     return tokens;
+}
+
+void saveData(Airline &airline) {
+    ofstream outputFile("/Users/qasimamar/CLionProjects/Amar_Term_Project/passenger_info1.txt");
+
+    if (!outputFile.is_open()) {
+        cout << "Error opening file!" << endl;
+        return;
+    }
+
+    // Iterate through each flight in the airline
+    for (const Flight& flight : airline.getFlightList()) {
+        outputFile << setw(6) << left << flight.getFlightId() << setw(5) << right << flight.getNumRows() << setw(5) << right << flight.getNumCols() << endl;
+
+        // Iterate through each passenger in the flight
+        for (const Passenger& passenger : flight.getPassengers()) {
+            // Assuming you have appropriate getter methods for passenger details like fName, lName, phoneNum, etc.
+            outputFile << setw(20) << left << passenger.getFName() << setw(20) << left << passenger.getLName() << setw(20) << left
+                       << passenger.getPhoneNum() << setw(2) << left << passenger.getSeat()->getRowNum()
+                       << setw(5) << left << passenger.getSeat()->getColNum() << setw(10) << right << passenger.getPassengerId() << endl;
+        }
+    }
+
+    outputFile.close();
 }
