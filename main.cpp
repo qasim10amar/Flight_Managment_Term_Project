@@ -13,7 +13,6 @@ int main() {
 //    };
     Airline myAirline = Airline("WestJet");
     populate_flight_list_from_file("passenger_info.txt", myAirline);
-    myAirline.getFlightList()[0].printSeatMap();
     display_header();
     menu();
 
@@ -104,6 +103,7 @@ void menu(){
         } else {
             switch (choice){
                 case 1:
+                    myAirline.getFlightList()[0].printSeatMap();
                     break;
                 case 2:
                     break;
