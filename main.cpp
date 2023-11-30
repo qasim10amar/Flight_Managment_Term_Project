@@ -15,6 +15,9 @@ int main() {
     populate_flight_list_from_file("passenger_info.txt", myAirline);
     myAirline.getFlightList()[0].printSeatMap();
     display_header();
+    cin.ignore();
+    cin.get();
+    menu();
 
     //myAirline.getFlightList()[1].printSeatMap();
 //    // Creating a Flight object
@@ -86,10 +89,10 @@ void populate_flight_list_from_file(string filename, Airline &airline) {
 }
 
 void display_header(){
-    cout << "Version 1.0" << endl <<
-    "Term Project - Flight Management Program in C++" << endl <<
-    "Produces by: Qasim Amar, Zaira Ramji, and (third guy name)" << endl <<
-    "Year: 2023"<< endl;
+    cout << "Version 1.0\nTerm Project - Flight Management Program in C++\nProduced by: Qasim Amar, Zaira Ramji, and (third guy name)\nYear: 2023\n\n"<< "<<< Press Return to Continue >>>>>"<<endl;
+}
+void menu(){
+    cout << "Please select one of the following options:\n1. Display Flight Seat Map\n2. Display Passenger Information\n3. Add New Passenger\n4. Remove an Existing Passenger\n5. Save data\n6. Quit\n";
 }
 
 
